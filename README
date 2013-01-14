@@ -1,0 +1,28 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=4396
+
+RocketJump aims to make line navigation faster and easier by providing alphabetic signs as hints. The signs are placed for each second visible line so that only lowercase english letters are used (as the easiest characters to type). Once in sign mode, one can adjust this "ruler" by hitting space to shift all signs one line below (I found it to be less tensive for fingers than adding capital letters). Typing sign character moves cursor to corresponding line and exits sign mode.
+
+In order to use sign jumps for yanking, deleting etc. a separate select state is provided: jumping creates linewise selection between jump points. Using sign jumps as motions for other commands is possible but not recommended -- Vim will treat it characterwise.
+
+USAGE:
+(Default mappings are not meant to be used "as is", remapping them as single key commands is strongly advised)
+- Type gl to go into move state (jump in normal mode, change selection in visual mode);
+- Or type gn to go into select state (in normal mode stretches linewise selection to jump end line);
+- Adjust the signs with space key if required;
+- Type a sign character to jump to that line.
+Warning: using move state for motions (e.g., dgl<...>) will not work as one might expect, use select state instead (i.e., gn<...>d).
+
+SETTINGS (defaults listed):
+1. Starting ID for signs:
+    let g:rj_startid = 888888
+2. Characters used for signs:
+    let g:rj_chars = "abcdefghijklmnopqrstuvwxyz"
+3. Adjust command character
+    let g:rj_cmdchar = " "
+4. Sign color scheme
+    let g:rj_signscheme = (has("gui_running")? "guifg=burlywood3" : "ctermfg=burlywood3")
+5. Mappings (declare g:rj_nomapping to disable them)
+    noremap <silent> gl :call RocketJump#PerformJump(0) <CR>
+    noremap <silent> gn V <bar> :call RocketJump#PerformJump(1) <CR>
+    vnoremap <silent> gl :call RocketJump#PerformJump(1) <CR>
+
